@@ -1,87 +1,134 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/operations';
-
-import { selectContacts } from '../../redux/selectors';
-import { nanoid } from 'nanoid';
-import { toast } from 'react-toastify';
-
-import css from './ContactForm.module.css';
+import { addContact } from '../../Redux/Contacts/operations';
+import { useState } from 'react';
+import {
+  FormWrap,
+  AddModalBtn,
+  UserIcon,
+  PhoneIcon,
+  InputForm,
+  AddModal,
+  OpenAddModal,
+} from './ContactForm.styled'; 
+import { PlusCircleOutlined } from '@ant-design/icons'; 
 
 export const ContactForm = () => {
+  const [open, setOpen] = useState(false); 
+  const [form] = FormWrap.useForm();
+  const currentContacts = useSelector(state => state.contacts.items); 
+  const loader = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
 
-
-  const formatPhoneNumber = value => {
-    return (
-      value
-        .replace(/[^0-9-]/g, '')
-        .replace(/(-{2,})/g, '-')
-        .replace(/(^-|-$)/g, '')
-        .replace(/(-)/g, '')
-        .match(/.{1,3}/g)
-        ?.join('-')
-        ?.trim() || ''
-    );
+  const showModal = () => {
+    form.resetFields(); 
+    setOpen(true);
   };
+const submit = value => {
+  const formatTel = () => {
+    const number = value.number;
+    const phoneLength = number.length;
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
-   const contact = {
-     id: nanoid(),
-     name: event.currentTarget.elements.name.value,
-     number: formatPhoneNumber(event.currentTarget.elements.number.value),
-   };
-
-
-    const isExist = contacts.find(
-      ({ name }) => name.toLowerCase() === contact.name.toLowerCase()
-    );
-
-    if (isExist) {
-      return toast.warn(`${contact.name} is already in contacts.`);
+    if (phoneLength < 9) {
+      return `+(${number.slice(0, 2)}) ${number.slice(2, 5)}-${number.slice(
+        5,
+        8
+      )}-${number.slice(8)}`;
     }
 
-    dispatch(addContact(contact));
-    event.currentTarget.reset();
+    return `+(${number.slice(0, 2)}) ${number.slice(2, 5)}-${number.slice(
+      5,
+      8
+    )}-${number.slice(8, 11)}`;
   };
 
+  const newContact = { name: value.name, number: formatTel() };
+  const newContactName = newContact.name.toLowerCase();
+
+  if (
+    currentContacts.find(
+      contact => contact.name.toLowerCase() === newContactName
+    )
+  ) {
+    alert(`${newContact.name} is already in contact`);
+  } else {
+    dispatch(addContact(newContact));
+
+    if (!loader) {
+      form.resetFields();
+      setOpen(false);
+    }
+  }
+};
+
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
-      <div className={css.label}>
-        <label className={css.labelContainer} htmlFor={nanoid()}>
-          Name
-          <input
-            type="text"
+    <>
+      <OpenAddModal
+        type="primary"
+        onClick={showModal}
+        title="add new contact"
+        size={'large'} 
+      >
+        <PlusCircleOutlined />
+        Add contact
+      </OpenAddModal>
+
+      <AddModal
+        footer={null}
+        title="Add new contact"
+        open={open}
+        onCancel={() => setOpen(false)}
+      >
+        <FormWrap
+          form={form}
+          name="normal_login"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={submit}
+        >
+          <FormWrap.Item
             name="name"
-            placeholder='Enter Name'
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            id={nanoid()}
-            required
-          />
-        </label>
-      </div>
-      <div className={css.label}>
-        <label className={css.labelContainer} htmlFor={nanoid()}>
-          Number
-          <input
-            type="tel"
+            rules={[
+              {
+                required: true,
+                message: 'Please input Name!',
+                type: 'text',
+              },
+            ]}
+          >
+            <InputForm
+              prefix={<UserIcon />}
+              placeholder="Name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            />
+          </FormWrap.Item>
+
+          <FormWrap.Item
             name="number"
-            placeholder='Enter number'
-            pattern="\+?\d{1,4}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            id={nanoid()}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <button className={css.button} type="submit">
-          Add contact
-        </button>
-      </div>
-    </form>
+            rules={[
+              {
+                required: true,
+                message: 'Please input Number!',
+                type: 'phone',
+              },
+            ]}
+          >
+            <InputForm
+              prefix={<PhoneIcon />}
+              type=""
+              placeholder="Number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            />
+          </FormWrap.Item>
+
+          <FormWrap.Item>
+            <AddModalBtn type="primary" htmlType="submit">
+              Create contact
+            </AddModalBtn>
+          </FormWrap.Item>
+        </FormWrap>
+      </AddModal>
+    </>
   );
 };
+

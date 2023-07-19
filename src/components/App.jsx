@@ -1,20 +1,67 @@
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { GlobalStyle } from './GlobalStyle';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { Layout } from './Layout/Layout';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, lazy } from 'react';
+import { refreshUser } from '../Redux/Authorization/operations'; 
+import { PrivateRoute } from './PrivateRoute'; 
+import { RestrictedRoute } from './RestrictedRoute'; 
+import { ToastContainer } from 'react-toastify'; 
+import { Spiner } from '../pages/ContactList/ContactList.styled';
 
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './FilterByName/FilterByName';
-import css from './App.module.css';
+const Register = lazy(() => import('../pages/Register/Register'));
+const Home = lazy(() => import('../pages/Home/Home'));
+const Login = lazy(() => import('../pages/Login/Login'));
+const Contactlist = lazy(() => import('../pages/ContactList/ContactList'));
 
 export const App = () => {
-  return (
-    <div className={css.container}>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
-      <ToastContainer position="top-center" />
-    </div>
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser()); 
+  }, [dispatch]);
+
+  const { isRefreshing } = useSelector(state => state.auth);
+
+ 
+  return !isRefreshing ? (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute component={<Contactlist />} redirectTo="/login" />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/contacts" component={<Login />} />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<Register />}
+              />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+
+     
+      <ToastContainer />
+
+     
+      <GlobalStyle />
+    </>
+  ) : (
+    <Spiner />
   );
 };
