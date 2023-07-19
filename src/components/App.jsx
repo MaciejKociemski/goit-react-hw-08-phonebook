@@ -3,10 +3,10 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from './Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, lazy } from 'react';
-import { refreshUser } from '../redux/Authorization/operations'; 
-import { PrivateRoute } from './PrivateRoute'; 
-import { RestrictedRoute } from './RestrictedRoute'; 
-import { ToastContainer } from 'react-toastify'; 
+import { refreshUser } from '../redux/Authorization/operations';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
+import { ToastContainer } from 'react-toastify';
 import { Spiner } from '../pages/ContactList/ContactList.styled';
 
 const Register = lazy(() => import('../pages/Register/Register'));
@@ -18,12 +18,11 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(refreshUser()); 
+    dispatch(refreshUser());
   }, [dispatch]);
 
   const { isRefreshing } = useSelector(state => state.auth);
 
- 
   return !isRefreshing ? (
     <>
       <Routes>
@@ -55,10 +54,8 @@ export const App = () => {
         </Route>
       </Routes>
 
-     
       <ToastContainer />
 
-     
       <GlobalStyle />
     </>
   ) : (

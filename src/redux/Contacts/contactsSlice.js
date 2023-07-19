@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact, redactContatc } from './operations';
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  redactContatc,
+} from './operations';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

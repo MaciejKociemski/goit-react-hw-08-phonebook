@@ -30,7 +30,7 @@ export const List = styled.ul`
 
 export const UserIcon = styled(UserSwitchOutlined)`
   color: #c7c6c6;
-  height:10px;
+  height: 10px;
 `;
 
 export const PhoneIcon = styled(PhoneOutlined)`
@@ -66,12 +66,11 @@ export const UserIconList = styled(UserOutlined)`
 export const PhoneiconList = styled(PhoneOutlined)`
   margin: 0 8px;
   color: #1677ff;
-  
 `;
 
 export const DivName = styled.div`
   min-width: 220px;
-  font-size:18px;
+  font-size: 18px;
 `;
 
 export const Spiner = styled(Spin)`

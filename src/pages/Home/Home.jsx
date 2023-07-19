@@ -5,13 +5,12 @@ import {
   HomeLink,
   Section,
   HomeContactList,
-} from './Home.styled'; 
+} from './Home.styled';
 
 import { useSelector } from 'react-redux';
 
-
 export default function Home() {
-  const { isLoaggedIn } = useSelector(state => state.auth); 
+  const { isLoaggedIn } = useSelector(state => state.auth);
 
   return (
     <Section>

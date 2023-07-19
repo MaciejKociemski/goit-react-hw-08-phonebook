@@ -1,17 +1,11 @@
-import {
-  Nav,
-  Link,
-  RegIcon,
-  LogInIcon,
-  Container,
-} from './AppBar.styled';
+import { Nav, Link, RegIcon, LogInIcon, Container } from './AppBar.styled';
 
 import { Spiner } from '../../pages/ContactList/ContactList.styled';
 import { useSelector } from 'react-redux';
 import { UserMenu } from '../../components/UserMenu/UserMenu';
 
 export const AppBar = () => {
-  const { isLoaggedIn, isLoading } = useSelector(state => state.auth); 
+  const { isLoaggedIn, isLoading } = useSelector(state => state.auth);
 
   return (
     <header>
@@ -20,14 +14,8 @@ export const AppBar = () => {
       <Container>
         <Nav>
           <div>
-            <Link to="/">
-              Home
-            </Link>
-            {isLoaggedIn && (
-              <Link to="/contacts">
-                Contacts
-              </Link>
-            )}
+            <Link to="/">Home</Link>
+            {isLoaggedIn && <Link to="/contacts">Contacts</Link>}
           </div>
           <div>
             {isLoaggedIn ? (

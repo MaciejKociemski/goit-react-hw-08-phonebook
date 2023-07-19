@@ -18,8 +18,8 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const onFinish = values => {
-    dispatch(loginization(values)); 
-    form.resetFields(); 
+    dispatch(loginization(values));
+    form.resetFields();
   };
 
   return (
@@ -75,4 +75,3 @@ export default function Login() {
     </section>
   );
 }
-

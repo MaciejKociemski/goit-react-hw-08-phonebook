@@ -5,7 +5,7 @@ import { SearchOutlined } from '@ant-design/icons';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.filter); 
+  const filter = useSelector(state => state.filter);
 
   return (
     <WrapperFiler>
@@ -15,9 +15,8 @@ export const Filter = () => {
         prefix={<SearchOutlined />}
         type="text"
         value={filter}
-        onChange={e => dispatch(filtration(e.target.value))} 
+        onChange={e => dispatch(filtration(e.target.value))}
       />
     </WrapperFiler>
   );
 };
-

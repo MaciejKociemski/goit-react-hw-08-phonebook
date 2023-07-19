@@ -60,9 +60,7 @@ export default function Contactlist() {
   const filterData = useSelector(state => state.filter).toLowerCase();
 
   const visibleContacts = contacts
-    .filter(subscriber =>
-      subscriber.name.toLowerCase().includes(filterData)
-    )
+    .filter(subscriber => subscriber.name.toLowerCase().includes(filterData))
     .reverse();
 
   return (

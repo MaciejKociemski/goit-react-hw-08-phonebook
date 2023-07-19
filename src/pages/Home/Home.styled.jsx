@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ContactsOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import img from '../../img/backgroundPicture.jpg';

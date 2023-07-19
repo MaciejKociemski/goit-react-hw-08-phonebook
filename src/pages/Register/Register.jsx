@@ -24,10 +24,9 @@ export default function Register() {
   const onFinish = values => {
     const { name, email, password, confirm } = values;
 
-   
     if (password === confirm) {
-      dispatch(register({ name, email, password })); 
-      !isLoading && !error && form.resetFields(); 
+      dispatch(register({ name, email, password }));
+      !isLoading && !error && form.resetFields();
     }
   };
 
@@ -39,7 +38,7 @@ export default function Register() {
           name="register"
           onFinish={onFinish}
           initialValues={{
-            residence: ['zhejiang', 'hangzhou', 'xihu'], 
+            residence: ['zhejiang', 'hangzhou', 'xihu'],
             prefix: '42',
           }}
           scrollToFirstError
@@ -103,7 +102,6 @@ export default function Register() {
                 message: 'Please confirm your password!',
               },
 
-              
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {

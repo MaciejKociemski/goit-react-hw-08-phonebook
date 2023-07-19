@@ -9,56 +9,56 @@ import {
   InputForm,
   AddModal,
   OpenAddModal,
-} from './ContactForm.styled'; 
-import { PlusCircleOutlined } from '@ant-design/icons'; 
+} from './ContactForm.styled';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 export const ContactForm = () => {
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
   const [form] = FormWrap.useForm();
-  const currentContacts = useSelector(state => state.contacts.items); 
+  const currentContacts = useSelector(state => state.contacts.items);
   const loader = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
 
   const showModal = () => {
-    form.resetFields(); 
+    form.resetFields();
     setOpen(true);
   };
-const submit = value => {
-  const formatTel = () => {
-    const number = value.number;
-    const phoneLength = number.length;
+  const submit = value => {
+    const formatTel = () => {
+      const number = value.number;
+      const phoneLength = number.length;
 
-    if (phoneLength < 9) {
+      if (phoneLength < 9) {
+        return `+(${number.slice(0, 2)}) ${number.slice(2, 5)}-${number.slice(
+          5,
+          8
+        )}-${number.slice(8)}`;
+      }
+
       return `+(${number.slice(0, 2)}) ${number.slice(2, 5)}-${number.slice(
         5,
         8
-      )}-${number.slice(8)}`;
-    }
+      )}-${number.slice(8, 11)}`;
+    };
 
-    return `+(${number.slice(0, 2)}) ${number.slice(2, 5)}-${number.slice(
-      5,
-      8
-    )}-${number.slice(8, 11)}`;
+    const newContact = { name: value.name, number: formatTel() };
+    const newContactName = newContact.name.toLowerCase();
+
+    if (
+      currentContacts.find(
+        contact => contact.name.toLowerCase() === newContactName
+      )
+    ) {
+      alert(`${newContact.name} is already in contact`);
+    } else {
+      dispatch(addContact(newContact));
+
+      if (!loader) {
+        form.resetFields();
+        setOpen(false);
+      }
+    }
   };
-
-  const newContact = { name: value.name, number: formatTel() };
-  const newContactName = newContact.name.toLowerCase();
-
-  if (
-    currentContacts.find(
-      contact => contact.name.toLowerCase() === newContactName
-    )
-  ) {
-    alert(`${newContact.name} is already in contact`);
-  } else {
-    dispatch(addContact(newContact));
-
-    if (!loader) {
-      form.resetFields();
-      setOpen(false);
-    }
-  }
-};
 
   return (
     <>
@@ -66,7 +66,7 @@ const submit = value => {
         type="primary"
         onClick={showModal}
         title="add new contact"
-        size={'large'} 
+        size={'large'}
       >
         <PlusCircleOutlined />
         Add contact
@@ -131,4 +131,3 @@ const submit = value => {
     </>
   );
 };
-
