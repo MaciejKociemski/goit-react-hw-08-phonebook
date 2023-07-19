@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact, redactContatc } from '../../Redux/Contacts/operations';
+import { fetchContacts, addContact, deleteContact, redactContatc } from './operations';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { logOut } from '../../Redux/Authorization/operations';
+import { logOut } from '../Authorization/operations';
 
 const handlePending = state => {
   state.isLoading = true;

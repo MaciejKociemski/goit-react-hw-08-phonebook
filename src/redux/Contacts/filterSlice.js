@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logOut } from '../../Redux/Authorization/operations';
+import { logOut } from '../Authorization/operations';
 
 export const filterSlice = createSlice({
   name: 'filter',
