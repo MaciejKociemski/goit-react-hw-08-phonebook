@@ -9,7 +9,7 @@ import {
   TitleReg,
 } from './Login.styled';
 
-import { loginization } from '../../Redux/Authorization/operations';
+import { loginization } from '../../redux/Authorization/operations';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
