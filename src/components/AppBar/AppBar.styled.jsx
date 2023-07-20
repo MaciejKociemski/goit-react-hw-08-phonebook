@@ -8,6 +8,22 @@ export const Nav = styled.nav`
   justify-content: space-between;
   height: 50px;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    gap: 25px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 400px;
+    display:block;
+    width:300px;
+    padding:10px;
+    font-size: 12px;
+  }
 `;
 
 export const Link = styled(NavLink)`
@@ -48,6 +64,7 @@ export const Container = styled.div`
   }
 
   @media (max-width: 480px) {
-    max-width: 400px;
+    max-width: 300px;
+    font-size: 12px;
   }
 `;

@@ -4,6 +4,7 @@ import { PhoneOutlined, UserAddOutlined } from '@ant-design/icons';
 
 export const FormWrap = styled(Form)`
   margin: 0 auto;
+  
 `;
 
 export const AddModalBtn = styled(Button)`
@@ -37,9 +38,11 @@ export const AddModal = styled(Modal)`
     position: absolute;
     top: 50%;
     left: 20%;
+
   }
 `;
 
 export const OpenAddModal = styled(Button)`
   margin: 15px 0;
+
 `;

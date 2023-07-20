@@ -20,6 +20,24 @@ export const Item = styled.li`
   align-items: center;
   font-size: 18px;
   font-weight: 500;
+
+  @media (max-width: 1024px) {
+    max-width: 768px;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 480px;
+    display: block;
+    font-size: 12px;
+    padding: 30px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 400px;
+    display: block;
+    font-size: 12px;
+    padding: 20px;
+  }
 `;
 
 export const List = styled.ul`
@@ -45,6 +63,13 @@ export const InputForm = styled(Input)`
   :nth-child(1) {
     margin-bottom: 6px;
   }
+
+  @media (max-width: 480px) {
+    max-width: 400px;
+    height:30px;
+    font-size: 12px;
+    
+  }
 `;
 
 export const ModalRedact = styled(Modal)`
@@ -55,6 +80,14 @@ export const ModalRedact = styled(Modal)`
     position: absolute;
     top: 50%;
     left: 20%;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 400px;
+    display: block;
+    font-size: 12px;
+    padding: 20px;
+    right:10%;
   }
 `;
 
