@@ -35,7 +35,11 @@ export default function Contactlist() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const handleOk = () => {
+    const handleOk = () => {
+        if (subName.trim() === '' || subNumber.trim() === '') {
+            return;
+        }
+
     setIsModalOpen(false);
     dispatch(redactContatc({ id: subId, name: subName, number: subNumber }));
   };
