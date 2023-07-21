@@ -23,7 +23,7 @@ export const Title = styled.h1`
 
 export const Wrap = styled.div`
   margin-bottom: 100px;
-  padding: 40px 0;
+  padding: 20px 0;
   display: flex;
   gap: 30px;
   justify-content: center;
@@ -68,7 +68,7 @@ export const Section = styled.section`
 
 export const HomeContactList = styled(ContactsOutlined)`
   svg {
-    color: #aaa;
+    color: #2777ff;
     width: 120px;
     display: block;
     height: 220px;
